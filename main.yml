@@ -1,0 +1,6 @@
+- hosts: web
+  vars:
+    users:
+      - max
+  roles:
+    - { name: user, become: yes }
