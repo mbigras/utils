@@ -7,3 +7,4 @@
   roles:
     - { name: admins, become: yes }
     - { name: bash, become: yes }
+    - { name: vim, become: yes }

@@ -1,0 +1,7 @@
+- name: install
+  apt: name=vim
+
+- name: configure
+  copy: src=.vimrc dest=/home/{{ item }}/ owner="{{ item }}" group="{{ item }}"
+  with_items:
+    - "{{ users }}"
