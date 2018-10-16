@@ -1,7 +1,7 @@
 def main
   hosts = {
     'control' => '192.168.23.11',
-    'web1' => '192.168.23.21',
+    'host1' => '192.168.23.21',
   }
 
   create_inventory(hosts)
@@ -10,11 +10,11 @@ end
 
 def create_inventory(hosts)
   inventory = <<~INVENTORY
-  [web]
-  #{hosts.select { |h,_| h.match(/web/) }.keys.join("\n")}
+  [host]
+  #{hosts.select { |h,_| h.match(/host/) }.keys.join("\n")}
 
   [vagrant:children]
-  web
+  host
 
   [vagrant:vars]
   ansible_user = vagrant
@@ -68,7 +68,7 @@ def build_environment(hosts)
           destination: '~/.ssh/id_rsa')
     end
 
-    hosts.select { |h,_| h.match(/web/) }.each do |h, ip|
+    hosts.select { |h,_| h.match(/host/) }.each do |h, ip|
       config.vm.define h do |t|
           t.vm.box = 'bento/ubuntu-16.04'
           t.vm.hostname = h

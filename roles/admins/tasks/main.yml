@@ -1,0 +1,16 @@
+- name: create admin and users groups
+  group: name="{{ item }}"
+  with_items:
+    - admin
+    - "{{ admins }}"
+
+- name: create admin users
+  user: name="{{ item }}" groups="admin,{{ item }}" append=yes
+  with_items:
+    - "{{ admins }}"
+
+- name: give admin group passwordless sudo access
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^%admin'
+    line: '%admin ALL=(ALL) NOPASSWD:ALL'

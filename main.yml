@@ -1,6 +1,8 @@
-- hosts: web
+- hosts: all
   vars:
-    users:
+    admins: &admins
+      - "{{ ansible_user_id }}"
       - max
+    users: *admins
   roles:
-    - { name: user, become: yes }
+    - { name: admins, become: yes }
