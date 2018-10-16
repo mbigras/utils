@@ -6,3 +6,4 @@
     users: *admins
   roles:
     - { name: admins, become: yes }
+    - { name: bash, become: yes }

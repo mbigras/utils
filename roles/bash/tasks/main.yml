@@ -1,0 +1,17 @@
+- name: add configuration that sources in source files directory
+  blockinfile:
+    path: /home/{{ item }}/.bashrc
+    insertafter: EOF
+    block: |
+      for f in ~/.bashrc.d/*; do
+        if [[ -f $f ]]; then
+          source $f
+        fi
+      done
+  with_items:
+    - "{{ users }}"
+
+- name: add source files directory
+  file: path=/home/{{ item }}/.bashrc.d state=directory owner="{{ item }}" group="{{ item }}"
+  with_items:
+    - "{{ users }}"
